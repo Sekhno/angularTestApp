@@ -5,3 +5,12 @@
 <button (click)="decrement()">Decrement</button>
 
 <button (click)="reset()">Reset Counter</button>
+
+<!-- <p>
+  <h1>{{ score$ | async }}</h1>
+</p> -->
+
+<div>Score: {{ score$ | async }}</div>
+
+
+<router-outlet></router-outlet>

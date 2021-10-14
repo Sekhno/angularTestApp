@@ -6,7 +6,7 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import * as fromCounter from '../counter-reducer.reducer'
+import * as fromCounter from './counter-reducer.reducer'
 
 
 export interface State {
