@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
 import { Store } from '@ngrx/store';
 import { increment, decrement, reset } from './store/counter-action.actions'
 
@@ -12,11 +14,19 @@ export class AppComponent {
   title = 'angularTestApp';
 
   count$: Observable<number>
-  score$: Subject<number>
 
-  constructor(private store: Store<{ count: number }>) {
+  constructor(
+    private store: Store<{ count: number }>,
+    public auth: AngularFireAuth
+  ) {
     this.count$ = store.select('count');
-    this.score$ = this.onScore()
+  }
+
+  login() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.auth.signOut();
   }
 
   increment() {
@@ -29,22 +39,5 @@ export class AppComponent {
 
   reset() {
     this.store.dispatch(reset());
-  }
-
-  onScore() {
-    let score = 1000;
-    let id: number;
-    const subject = new Subject<number>()
-
-    const anim = function() {
-      subject.next(score--)
-      if (score < 0) {
-        subject.complete()
-        window.cancelAnimationFrame(id)
-      }
-      id = window.requestAnimationFrame(anim)
-    }
-    anim()
-    return subject
   }
 }
