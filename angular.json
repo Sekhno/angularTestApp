@@ -109,6 +109,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "angularTestApp:build:production",
+            "firebaseProject": "diforb-angular",
+            "firebaseHostingSite": "diforbangulartest"
+          }
         }
       }
     }

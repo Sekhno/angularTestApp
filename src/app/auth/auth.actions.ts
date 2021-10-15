@@ -1,24 +1,32 @@
 import { createAction, props } from '@ngrx/store';
 
-export const NavigateToSignInAction = createAction(
-  '[Auth] Navigate To Sign In'
+export enum AuthActions {
+  NAVIGATE_TO_SIGN_IN = '[Auth] Navigate To Sign In',
+  REQUEST_SIGN_IN = '[Auth] Request Sign In',
+  SIGN_IN_SUCCESS = '[Auth] Sign In Success',
+  SIGN_IN_FAILURE = '[Auth] Sign In Failure',
+  SIGN_OUT = '[Auth] Sign Out'
+}
+
+export const navigateToSignInAction = createAction(
+  AuthActions.NAVIGATE_TO_SIGN_IN
 );
 
-export const RequestSignInAction = createAction(
-  '[Auth] Request Sign In',
+export const requestSignInAction = createAction(
+  AuthActions.REQUEST_SIGN_IN,
   props<{ username: string, password: string }>()
 );
 
-export const SignInSuccessAction = createAction(
-  '[Auth] Sign In Success',
+export const signInSuccessAction = createAction(
+  AuthActions.SIGN_IN_SUCCESS,
   props<{ token: string, expireAt: number }>()
 );
 
-export const SignInFailureAction = createAction(
-  '[Auth] Sign In Failure',
+export const signInFailureAction = createAction(
+  AuthActions.SIGN_IN_FAILURE,
   props<{ message: string }>()
 );
 
-export const SignOutAction = createAction(
-  '[Auth] Sign Out'
+export const signOutAction = createAction(
+  AuthActions.SIGN_OUT
 )

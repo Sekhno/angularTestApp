@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "diforb-angular": {
+      "hosting": {
+        "angularTestApp": [
+          "diforbangulartest"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "diforb-angular"
+  }
+}
