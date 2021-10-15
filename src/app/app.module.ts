@@ -2,26 +2,45 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AuthModule } from './auth/auth.module';
+import { AuthEffects } from './auth/auth.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { PageNotFoundComponentComponent } from './pages/page-not-found-component/page-not-found-component.component';
+import { MainComponent } from './pages/main/main.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    SignInComponent,
+    PageNotFoundComponentComponent,
+    MainComponent,
   ],
   imports: [
-
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
+
     StoreModule.forRoot(reducers, { metaReducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
+    EffectsModule.forRoot([AuthEffects]),
+
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -29,11 +48,12 @@ import { AppComponent } from './app.component';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AuthModule,
-    BrowserAnimationsModule
+
   ],
   providers: [
 

@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { State } from './auth.state'
 import {
   navigateToSignInAction,
   requestSignInAction,
@@ -7,16 +8,7 @@ import {
   signOutAction
 } from './auth.actions'
 
-
 export const authFeatureKey = 'auth';
-
-export interface State {
-  username: string;
-  password: string;
-  authenticated: boolean;
-  token: string;
-  expireAt: number | null;
-}
 
 export const initialState: State = {
   username: '',
@@ -25,7 +17,6 @@ export const initialState: State = {
   token: '',
   expireAt: null,
 };
-
 
 export const reducer = createReducer(
   initialState,

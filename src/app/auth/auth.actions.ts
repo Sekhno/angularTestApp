@@ -5,7 +5,8 @@ export enum AuthActions {
   REQUEST_SIGN_IN = '[Auth] Request Sign In',
   SIGN_IN_SUCCESS = '[Auth] Sign In Success',
   SIGN_IN_FAILURE = '[Auth] Sign In Failure',
-  SIGN_OUT = '[Auth] Sign Out'
+  SIGN_OUT = '[Auth] Sign Out',
+  REQUEST_SIGH_IN_WITH_GOOGLE = '[Auth] Request Sign In With Google',
 }
 
 export const navigateToSignInAction = createAction(
@@ -29,4 +30,8 @@ export const signInFailureAction = createAction(
 
 export const signOutAction = createAction(
   AuthActions.SIGN_OUT
+);
+
+export const requestSignInWithGoogleAction = createAction(
+  AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE
 )

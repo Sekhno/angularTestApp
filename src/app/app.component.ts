@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+
 import { Store } from '@ngrx/store';
 import { increment, decrement, reset } from './store/counter-action.actions'
 
@@ -16,18 +15,11 @@ export class AppComponent {
   count$: Observable<number>
 
   constructor(
-    private store: Store<{ count: number }>,
-    public auth: AngularFireAuth
+    private store: Store<{ count: number }>
   ) {
     this.count$ = store.select('count');
   }
 
-  login() {
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
-  logout() {
-    this.auth.signOut();
-  }
 
   increment() {
     this.store.dispatch(increment());
