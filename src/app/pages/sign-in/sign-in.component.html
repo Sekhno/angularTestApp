@@ -1,8 +1,9 @@
 <div class="container">
   <mat-card class="card-login">
-    <mat-card-title>Please login.</mat-card-title>
-    <mat-card-content>
-      <button mat-raised-button (click)="login()">Login with Google</button>
+    <mat-card-title class="card-login-title">Login</mat-card-title>
+    <mat-card-content class="card-login-content">
+      <button mat-raised-button (click)="loginWithGoogle()">Login with Google</button>
+      <button mat-raised-button (click)="loginWithFacebook()">Login with Facebook</button>
     </mat-card-content>
   </mat-card>
 </div>

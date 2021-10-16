@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {Component} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
-import { Store } from '@ngrx/store';
-import { increment, decrement, reset } from './store/counter-action.actions'
+import {Store} from '@ngrx/store';
+import {increment, decrement, reset} from './store/counter-action.actions';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -12,24 +13,7 @@ import { increment, decrement, reset } from './store/counter-action.actions'
 export class AppComponent {
   title = 'angularTestApp';
 
-  count$: Observable<number>
-
   constructor(
     private store: Store<{ count: number }>
-  ) {
-    this.count$ = store.select('count');
-  }
-
-
-  increment() {
-    this.store.dispatch(increment());
-  }
-
-  decrement() {
-    this.store.dispatch(decrement());
-  }
-
-  reset() {
-    this.store.dispatch(reset());
-  }
+  ) {}
 }

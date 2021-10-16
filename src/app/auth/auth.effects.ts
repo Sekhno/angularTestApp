@@ -9,6 +9,7 @@ import { catchError, first, last, mergeMap, switchMap, tap, map, take } from 'rx
 import { AuthActions, signInSuccessAction, signInFailureAction} from './auth.actions'
 import { AuthService } from './auth.service';
 import { Store } from '@ngrx/store';
+import { SnakbarService } from '../services/snakbar.service';
 
 
 @Injectable()
@@ -24,7 +25,7 @@ export class AuthEffects {
   signInWithGoogle$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE),
     mergeMap(() => this.auth.signInWithGoogle().pipe(
-      tap(console.log),
+      tap(() => this.snakBar.openSnackBar('Sign in with Google SUCCESS')),
       map((res) => this.store.dispatch(signInSuccessAction({
         token: res.credential.accessToken,
         expireAt: 1000
@@ -40,15 +41,12 @@ export class AuthEffects {
     })
   ), { dispatch: false })
 
-
-
-
-
   constructor(
     private actions$: Actions,
     private router: Router,
     private auth: AuthService,
-    private store: Store
+    private store: Store,
+    private snakBar: SnakbarService
   ) {}
 
 }

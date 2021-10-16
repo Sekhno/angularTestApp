@@ -14,18 +14,16 @@ export class SignInComponent implements OnInit {
   constructor(
     private store: Store,
     private auth: AngularFireAuth
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  login() {
+  loginWithGoogle() {
     this.store.dispatch(requestSignInWithGoogleAction())
   }
-  logout() {
-    // this.auth.signOut();
-  }
 
+  loginWithFacebook() {
+    //
+  }
 
 }
