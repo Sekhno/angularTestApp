@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { PageNotFoundComponentComponent } from './pages/page-not-found-component/page-not-found-component.component';
 import { MainComponent } from './pages/main/main.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -32,14 +33,14 @@ import { MainComponent } from './pages/main/main.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
+    SharedModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([]),
 
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     ServiceWorkerModule.register('ngsw-worker.js', {

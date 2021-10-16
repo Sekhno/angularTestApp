@@ -1,11 +1,11 @@
-<!-- <div *ngIf="auth.user | async as user; else showLogin">
-  <h1>Hello {{ user.displayName }}!</h1>
-  <button (click)="logout()">Logout</button>
+<div class="container">
+  <mat-card class="card-login">
+    <mat-card-title>Please login.</mat-card-title>
+    <mat-card-content>
+      <button mat-raised-button (click)="login()">Login with Google</button>
+    </mat-card-content>
+  </mat-card>
 </div>
-<ng-template #showLogin>
-  <p>Please login.</p>
-  <button (click)="login()">Login with Google</button>
-</ng-template> -->
 
-<p>Please login.</p>
-<button (click)="login()">Login with Google</button>
+
+

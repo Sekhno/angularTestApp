@@ -6,8 +6,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TypedAction } from '@ngrx/store/src/models';
 import { EMPTY, from, Observable, of } from 'rxjs'
 import { catchError, first, last, mergeMap, switchMap, tap, map, take } from 'rxjs/operators'
-import { AuthActions, requestSignInWithGoogleAction } from './auth.actions'
+import { AuthActions, signInSuccessAction, signInFailureAction} from './auth.actions'
 import { AuthService } from './auth.service';
+import { Store } from '@ngrx/store';
 
 
 @Injectable()
@@ -16,33 +17,38 @@ export class AuthEffects {
   navigateToSignIn$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.NAVIGATE_TO_SIGN_IN),
     tap((action: TypedAction<AuthActions.NAVIGATE_TO_SIGN_IN>) => {
-      console.log('navigateToSignIn$')
-      // this.router.navigate(['sign-in'])
-
-    }),
-    catchError(() => EMPTY))
-  );
-
-  signInWithGoogleAction$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE),
-    // map(() => this.auth.signInWithGoogle().pipe(
-
-    // ))
-    // take(1),
-    tap((action: TypedAction<AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE>) => {
-      console.log('signInWithGoogleAction$')
-    }),
-    // catchError(() => EMPTY)
+      this.router.navigate(['sign-in'])
+    })
   ), { dispatch: false });
+
+  signInWithGoogle$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE),
+    mergeMap(() => this.auth.signInWithGoogle().pipe(
+      tap(console.log),
+      map((res) => this.store.dispatch(signInSuccessAction({
+        token: res.credential.accessToken,
+        expireAt: 1000
+      }))),
+      catchError(async (err) => this.store.dispatch(signInFailureAction({message: err})))
+    ))
+  ), { dispatch: false });
+
+  signInSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.SIGN_IN_SUCCESS),
+    tap((action: TypedAction<AuthActions.SIGN_IN_SUCCESS>) => {
+      this.router.navigate([''])
+    })
+  ), { dispatch: false })
+
+
 
 
 
   constructor(
     private actions$: Actions,
     private router: Router,
-    private auth: AuthService
-  ) {
-    console.log('Effect!')
-  }
+    private auth: AuthService,
+    private store: Store
+  ) {}
 
 }

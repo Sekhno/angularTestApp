@@ -46,6 +46,7 @@ export const reducer = createReducer(
     expireAt: null,
     username: '',
     password: ''
-  }))
+  })),
+
 );
 
