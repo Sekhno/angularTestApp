@@ -20,6 +20,24 @@
       flex-direction: column;
     }
   }
+
+  .panel {
+
+    &-header {
+      height: 40px;
+
+      &-title {
+        margin-right: 0;
+        justify-content: center;
+      }
+    }
+  }
+
+  .form {
+    &-field {
+      width: 100%;
+    }
+  }
 }
 
 

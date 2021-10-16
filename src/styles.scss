@@ -37,3 +37,7 @@ $angularTestApp-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.divide-transparent {
+  height: .5rem;
+}

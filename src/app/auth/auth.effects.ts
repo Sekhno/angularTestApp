@@ -25,7 +25,7 @@ export class AuthEffects {
   signInWithGoogle$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE),
     mergeMap(() => this.auth.signInWithGoogle().pipe(
-      tap(() => this.snakBar.openSnackBar('Sign in with Google SUCCESS')),
+
       map((res) => this.store.dispatch(signInSuccessAction({
         token: res.credential.accessToken,
         expireAt: 1000
@@ -37,6 +37,7 @@ export class AuthEffects {
   signInSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.SIGN_IN_SUCCESS),
     tap((action: TypedAction<AuthActions.SIGN_IN_SUCCESS>) => {
+      this.snakBar.openSnackBar('Sign in with Google SUCCESS')
       this.router.navigate([''])
     })
   ), { dispatch: false })
