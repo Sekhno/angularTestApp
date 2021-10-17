@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [@animationFadeAndScale]="animationState">
   <mat-card class="card-login">
     <mat-card-title class="card-login-title">Login</mat-card-title>
     <mat-card-content class="card-login-content">
@@ -12,7 +12,7 @@
           <form class="form">
             <mat-form-field class="form-field" appearance="fill">
               <mat-label>Email</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="emailMatcher"
                      placeholder="Ex. pat@example.com">
               <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
               <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -24,22 +24,25 @@
             </mat-form-field>
             <mat-form-field class="form-field" appearance="fill">
               <mat-label>Password</mat-label>
-              <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
-
-
+              <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="passMatcher">
               <mat-error *ngIf="passwordFormControl.hasError('required')">
                 Password is <strong>required</strong>
               </mat-error>
             </mat-form-field>
+            <button mat-raised-button (click)="loginWithEmail()" [disabled]="isDisabled()">Submit</button>
           </form>
+          <p>
+            <span (click)="routeForgotPassword()">Forgot Password?</span>
+          </p>
         </mat-expansion-panel>
-
       </mat-accordion>
       <div class="divide-transparent"></div>
-
       <button mat-raised-button (click)="loginWithGoogle()">Login with Google</button>
       <div class="divide-transparent"></div>
       <button mat-raised-button (click)="loginWithFacebook()">Login with Facebook</button>
+      <p>
+        <span>Sign Up?</span>
+      </p>
     </mat-card-content>
   </mat-card>
 </div>

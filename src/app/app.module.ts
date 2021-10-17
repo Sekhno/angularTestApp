@@ -20,6 +20,7 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { PageNotFoundComponentComponent } from './pages/page-not-found-component/page-not-found-component.component';
 import { MainComponent } from './pages/main/main.component';
 import { SharedModule } from './shared/shared.module';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
     SignInComponent,
     PageNotFoundComponentComponent,
     MainComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,9 +18,17 @@ export class AuthService {
     return this.auth.user
   }
 
+  signInWithEmail(username: string, password: string): Promise<any> {
+    return this.auth.signInWithEmailAndPassword(username, password)
+  }
+
   signInWithGoogle(): Observable<any> {
     return from(this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
   }
 
+  signInWithFacebook() {}
 
+  forgotPassword(email: string) {
+    return this.auth.sendPasswordResetEmail(email)
+  }
 }

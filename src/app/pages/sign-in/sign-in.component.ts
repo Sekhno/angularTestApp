@@ -1,19 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import firebase from 'firebase/compat/app';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {requestSignInWithGoogleAction} from '../../auth/auth.actions'
+import {FormControl, Validators} from '@angular/forms';
+import {requestSignInWithGoogleAction, requestSignInAction} from '../../auth/auth.actions';
+import {MyErrorStateMatcher} from '../../models/class/errorStateMather';
+import {AnimationStates} from '../../models/enum/animationStates';
+import {animationFadeAndScale} from '../../models/animations/animationFadeAndScale'
+
+
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
+  animations: [animationFadeAndScale]
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
   panelOpenState = false;
-  value = 'Clear me';
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -22,33 +25,48 @@ export class SignInComponent implements OnInit {
     Validators.required,
   ])
 
-  matcher = new MyErrorStateMatcher();
+  emailMatcher = new MyErrorStateMatcher();
+  passMatcher = new MyErrorStateMatcher();
+
+  animationState = 'initial'
 
   constructor(
     private store: Store,
-    private auth: AngularFireAuth
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.animationState = AnimationStates.Loaded;
+    })
+  }
+
+  ngOnDestroy(): void {}
 
   loginWithGoogle() {
     this.store.dispatch(requestSignInWithGoogleAction())
   }
 
-  loginWithFacebook() {
-    //
-  }
+  loginWithFacebook() {}
 
   loginWithEmail() {
-    //
+    this.store.dispatch(requestSignInAction({
+      username: this.emailFormControl.value,
+      password: this.passwordFormControl.value
+    }))
   }
 
-}
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  isDisabled(): boolean {
+    return !this.emailFormControl.valid || !this.passwordFormControl.valid;
   }
+
+  routeForgotPassword() {
+    this.animationState = AnimationStates.Destroyed;
+    setTimeout(() => {
+      this.router.navigate(['reset-password'])
+    }, 300)
+  }
+
 }
