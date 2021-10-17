@@ -18,11 +18,15 @@ export class AuthService {
     return this.auth.user
   }
 
-  signInWithEmail(username: string, password: string): Promise<any> {
+  signUpWithEmail(username: string, password: string) {
+    return this.auth.createUserWithEmailAndPassword(username, password)
+  }
+
+  signInWithEmail(username: string, password: string) {
     return this.auth.signInWithEmailAndPassword(username, password)
   }
 
-  signInWithGoogle(): Observable<any> {
+  signInWithGoogle() {
     return from(this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
   }
 

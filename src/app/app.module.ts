@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -13,15 +14,14 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AuthModule } from './auth/auth.module';
-import { AuthEffects } from './auth/auth.effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
+
 import { AppComponent } from './app.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { PageNotFoundComponentComponent } from './pages/page-not-found-component/page-not-found-component.component';
 import { MainComponent } from './pages/main/main.component';
-import { SharedModule } from './shared/shared.module';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     PageNotFoundComponentComponent,
     MainComponent,
     ResetPasswordComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

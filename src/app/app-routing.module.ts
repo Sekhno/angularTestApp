@@ -5,10 +5,12 @@ import { PageNotFoundComponentComponent } from './pages/page-not-found-component
 import { MainComponent } from './pages/main/main.component';
 import { AuthGuard } from './auth/auth.guard'
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: '**', component: PageNotFoundComponentComponent }
 ];

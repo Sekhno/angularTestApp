@@ -62,10 +62,10 @@ export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
     return !this.emailFormControl.valid || !this.passwordFormControl.valid;
   }
 
-  routeForgotPassword() {
+  routeTo(url: string) {
     this.animationState = AnimationStates.Destroyed;
     setTimeout(() => {
-      this.router.navigate(['reset-password'])
+      this.router.navigate([url])
     }, 300)
   }
 

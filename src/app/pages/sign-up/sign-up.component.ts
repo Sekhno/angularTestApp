@@ -6,12 +6,12 @@ import {MyErrorStateMatcher} from '../../models/class/errorStateMather';
 import {AnimationStates} from '../../models/enum/animationStates';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss'],
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss'],
   animations: [animationFadeAndScale]
 })
-export class ResetPasswordComponent implements OnInit {
+export class SignUpComponent implements OnInit {
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -20,29 +20,18 @@ export class ResetPasswordComponent implements OnInit {
 
   animationState = 'initial'
 
+
   constructor(
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.animationState = AnimationStates.Loaded;
     })
-  }
-
-  resetPassword(){}
-
-  isDisabled(): boolean {
-    return !this.emailFormControl.valid
-  }
-
-  routeSignIn() {
-    this.animationState = AnimationStates.Destroyed;
-    setTimeout(() => {
-      this.router.navigate(['sign-in'])
-    }, 300)
   }
 
 }

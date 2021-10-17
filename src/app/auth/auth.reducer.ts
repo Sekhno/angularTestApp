@@ -5,6 +5,9 @@ import {
   requestSignInAction,
   signInSuccessAction,
   signInFailureAction,
+  requestSignUpAction,
+  signUpSuccessAction,
+  signUpFailureAction,
   signOutAction
 } from './auth.actions'
 
@@ -47,6 +50,24 @@ export const reducer = createReducer(
     username: '',
     password: ''
   })),
-
+  on(requestSignUpAction, (state, action) => ({
+    ...state,
+    username: action.username,
+    password: action.password
+  })),
+  on(signUpSuccessAction, (state, action) => ({
+    ...state,
+    authenticated: true,
+    token: action.token,
+    expireAt: action.expireAt
+  })),
+  on(signUpFailureAction, (state, action) => ({
+    ...state,
+    authenticated: false,
+    token: '',
+    expireAt: null,
+    username: '',
+    password: ''
+  })),
 );
 

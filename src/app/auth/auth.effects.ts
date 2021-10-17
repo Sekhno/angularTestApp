@@ -6,7 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TypedAction } from '@ngrx/store/src/models';
 import { EMPTY, from, Observable, of } from 'rxjs'
 import { catchError, first, last, mergeMap, switchMap, tap, map, take } from 'rxjs/operators'
-import { AuthActions, signInSuccessAction, signInFailureAction} from './auth.actions'
+import { AuthActions, signInSuccessAction, signInFailureAction, signUpSuccessAction} from './auth.actions'
 import { AuthService } from './auth.service';
 import { Store } from '@ngrx/store';
 import { SnakbarService } from '../services/snakbar.service';
@@ -19,6 +19,22 @@ export class AuthEffects {
     ofType(AuthActions.NAVIGATE_TO_SIGN_IN),
     tap((action: TypedAction<AuthActions.NAVIGATE_TO_SIGN_IN>) => {
       this.router.navigate(['sign-in'])
+    })
+  ), { dispatch: false });
+
+  signUpWithEmail$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.REQUEST_SIGN_UP),
+    tap((action: {
+      username: string,
+      password: string
+    } & TypedAction<AuthActions.REQUEST_SIGN_UP>) => {
+      this.auth.signUpWithEmail(
+        action.username,
+        action.password
+      ).then(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      )
     })
   ), { dispatch: false });
 
@@ -44,7 +60,7 @@ export class AuthEffects {
     ofType(AuthActions.REQUEST_SIGH_IN_WITH_GOOGLE),
     mergeMap(() => this.auth.signInWithGoogle().pipe(
       map((res) => this.store.dispatch(signInSuccessAction({
-        token: res.credential.accessToken,
+        token: (res.credential as firebase.auth.AuthCredential & {accessToken: string}).accessToken,
         expireAt: 1000
       }))),
       catchError(async (err) => this.store.dispatch(signInFailureAction({message: err})))
