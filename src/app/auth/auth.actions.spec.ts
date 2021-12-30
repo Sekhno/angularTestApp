@@ -2,6 +2,6 @@ import * as fromAuth from './auth.actions';
 
 describe('signAuths', () => {
   it('should return an action', () => {
-    expect(fromAuth.signAuths().type).toBe('[Auth] Sign Auths');
+    expect(fromAuth.navigateToSignInAction().type).toBe('[Auth] Navigate To Sign In');
   });
 });
