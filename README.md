@@ -1,5 +1,6 @@
 # AngularTestApp
-Login and Main app
+Login (Firebase Auth) and Main app (Empty)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
 
