@@ -30,7 +30,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     PageNotFoundComponentComponent,
     MainComponent,
     ResetPasswordComponent,
-    SignUpComponent
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FormControl, Validators } from '@angular/forms';
@@ -9,14 +9,19 @@ import {
 import { MyErrorStateMatcher } from '../../models/class/errorStateMather';
 import { AnimationStates } from '../../models/enum/animationStates';
 import { animationFadeAndScale } from '../../models/animations/animationFadeAndScale';
+import { CommonAuthPage } from '../../models/class/CommonAuthPage'
 
 @Component({
     selector: 'app-sign-in',
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [animationFadeAndScale],
 })
-export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SignInComponent 
+    extends CommonAuthPage
+    implements OnInit, OnDestroy 
+{
     panelOpenState = false;
     emailFormControl = new FormControl('', [
         Validators.required,
@@ -27,17 +32,15 @@ export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
     emailMatcher = new MyErrorStateMatcher();
     passMatcher = new MyErrorStateMatcher();
 
-    animationState = 'initial';
-
-    constructor(private store: Store, private router: Router) {}
+    constructor(
+        private store: Store, 
+        protected router: Router,
+        protected changeDetectorRef: ChangeDetectorRef 
+    ) {
+        super(router, changeDetectorRef)
+    }
 
     ngOnInit(): void {}
-
-    ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.animationState = AnimationStates.Loaded;
-        });
-    }
 
     ngOnDestroy(): void {}
 
@@ -58,12 +61,5 @@ export class SignInComponent implements OnInit, OnDestroy, AfterViewInit {
 
     isDisabled(): boolean {
         return !this.emailFormControl.valid || !this.passwordFormControl.valid;
-    }
-
-    routeTo(url: string) {
-        this.animationState = AnimationStates.Destroyed;
-        setTimeout(() => {
-            this.router.navigate([url]);
-        }, 300);
     }
 }
