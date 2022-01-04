@@ -18,14 +18,16 @@ export abstract class CommonAuthPage
         setTimeout(() => {
             this.animationState = AnimationStates.Loaded;
             this.changeDetectorRef.markForCheck();
+            console.log(this.animationState);
         });
     }
 
     routeTo(url: string) {
         this.animationState = AnimationStates.Destroyed;
         setTimeout(() => {
-            this.router.navigate([url]);
-        }, 300);
+            // this.router.navigate([url]);
+            console.log(this.animationState);
+        }, 300)
     }
     
 }

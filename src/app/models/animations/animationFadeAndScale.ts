@@ -9,7 +9,7 @@ export const animationFadeAndScale = trigger('animationFadeAndScale', [
       style({ opacity: 1, transform: 'scale(1)', offset: 1 })
     ])),
   ]),
-  transition('loaded => *', [
+  transition('loaded => destroyed', [
     animate('.3s', style({ opacity: 0, transform: 'scale(0.6)' })),
   ]),
 ])
