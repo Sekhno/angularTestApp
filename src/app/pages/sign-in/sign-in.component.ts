@@ -7,9 +7,9 @@ import {
     requestSignInAction,
 } from '../../auth/auth.actions';
 import { MyErrorStateMatcher } from '../../models/class/errorStateMather';
-import { AnimationStates } from '../../models/enum/animationStates';
+import { AnimationStates } from '../../models/enums/animationStates';
 import { animationFadeAndScale } from '../../models/animations/animationFadeAndScale';
-import { CommonAuthPage } from '../../models/class/CommonAuthPage'
+import { CommonAuthPage } from '../../models/class/commonAuthPage'
 
 @Component({
     selector: 'app-sign-in',
@@ -18,9 +18,9 @@ import { CommonAuthPage } from '../../models/class/CommonAuthPage'
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [animationFadeAndScale],
 })
-export class SignInComponent 
+export class SignInComponent
     extends CommonAuthPage
-    implements OnInit, OnDestroy 
+    implements OnInit, OnDestroy
 {
     panelOpenState = false;
     emailFormControl = new FormControl('', [
@@ -33,9 +33,9 @@ export class SignInComponent
     passMatcher = new MyErrorStateMatcher();
 
     constructor(
-        private store: Store, 
+        private store: Store,
         protected router: Router,
-        protected changeDetectorRef: ChangeDetectorRef 
+        protected changeDetectorRef: ChangeDetectorRef
     ) {
         super(router, changeDetectorRef)
     }

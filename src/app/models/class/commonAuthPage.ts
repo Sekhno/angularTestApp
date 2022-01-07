@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AnimationStates } from '../enum/animationStates';
+import { AnimationStates } from '../enums/animationStates';
 
 @Injectable()
 export abstract class CommonAuthPage
@@ -29,5 +29,5 @@ export abstract class CommonAuthPage
             console.log(this.animationState);
         }, 300)
     }
-    
+
 }
